@@ -23,44 +23,17 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
  
-        let url = URL(string: "https://imgur.com/34d1Tef.jpg")!
+        let url1 = URL(string: "https://imgur.com/34d1Tef.jpg")!
         let url2 = URL(string: "https://imgur.com/uVACNxB.jpg")!
-        let data = try! Data(contentsOf: url)
+        let data1 = try! Data(contentsOf: url1)
         let data2 = try! Data(contentsOf: url2)
-        if let image2 = UIImage(data: data2) {
-            let image = UIImage(data: data)
-            /*
-            var pixels = [PixelData]()
-            
-            for i in 0...Int(image.size.height)-1 {
-                for j in 0...Int(image.size.width)-1 {
-                    let colorAtPixel = image.getPixelColor(pos: CGPoint(x: i, y: j))
-                    pixels.append(colorAtPixel)
-                }
-                print(i)
-            }
-             */
-			var images = [UIImage]()
-            for i in 1...9 {
-                let start = DispatchTime.now()
-            let ratio = Float(i) / Float(10)
-            let pixels = interpolateImage(img1: image!, img2: image2, ratio: ratio)
-                let end = DispatchTime.now()
-            //let final = imageFromBitmap(pixels: pixels, width: Int((image?.size.width)!), height: Int((image?.size.height)!))
-                let end2 = DispatchTime.now()
-                let nanoTime = end.uptimeNanoseconds - start.uptimeNanoseconds // <<<<< Difference in nano seconds (UInt64)
-                let timeInterval = Double(nanoTime) / 1_000_000_000
-                let nanoTime2 = end2.uptimeNanoseconds - end.uptimeNanoseconds // <<<<< Difference in nano seconds (UInt64)
-                let timeInterval2 = Double(nanoTime2) / 1_000_000_000
-                print("Time: \(timeInterval), \(timeInterval2) seconds")
-				images.append(pixels!)
-            }
-			imageView?.animationImages = images
-			imageView?.animationDuration = 2
-			imageView?.startAnimating()
+        if let image1 = UIImage(data: data1) {
+			if let image2 = UIImage(data: data2) {
+				imageView?.animationImages = generateInterpolatedImages(img1: image1, img2: image2, num: 10)
+				imageView?.animationDuration = 1
+				imageView?.startAnimating()
+			}
         }
- 
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -68,32 +41,24 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    func convert(cmage: CIImage) -> UIImage {
-        let context: CIContext = CIContext.init(options: nil)
-        let cgImage: CGImage = context.createCGImage(cmage, from: cmage.extent)!
-        let image: UIImage = UIImage.init(cgImage: cgImage)
-        return image
-    }
-   
-    
-    func imageFromBitmap(pixels: Data, width: Int, height: Int) -> UIImage? {
-        assert(width > 0)
-        
-        assert(height > 0)
-        
-        //let pixelDataSize = MemoryLayout<PixelData>.size
-        //assert(pixelDataSize == 4)
-        
-        //assert(pixels.count == Int(width * height))
-        
-        //let data: Data = pixels.withUnsafeBufferPointer {
-            //return Data(buffer: $0)
-        //}
-        
-        let cfdata = NSData(data: pixels) as CFData
+	func generateInterpolatedImages(img1: UIImage, img2: UIImage, num: Int) -> [UIImage] {
+		var images = [UIImage]()
+		guard num > 0 else {
+			return images
+		}
+		for i in 1...num {
+			let ratio = Float(i) / Float(num+1)
+			if let interpolatedImage = interpolateImage(img1: img1, img2: img2, ratio: ratio) {
+				images.append(interpolatedImage)
+			}
+		}
+		return images
+	}
+
+    func imageFromBitmap(bitmap: Data, width: Int, height: Int) -> UIImage? {
+        let cfdata = NSData(data: bitmap) as CFData
         let provider: CGDataProvider! = CGDataProvider(data: cfdata)
-        if provider == nil {
-            print("CGDataProvider is not supposed to be nil")
+        guard provider != nil else {
             return nil
         }
         let cgimage: CGImage! = CGImage(
@@ -109,8 +74,7 @@ class ViewController: UIViewController {
             shouldInterpolate: true,
             intent: .defaultIntent
         )
-        if cgimage == nil {
-            print("CGImage is not supposed to be nil")
+        guard cgimage != nil else {
             return nil
         }
         return UIImage(cgImage: cgimage)
@@ -146,8 +110,8 @@ class ViewController: UIViewController {
 				let resultPixelUint8Ary = UnsafeMutablePointer<UInt8>.allocate(capacity: len)
 				vDSP_vfixu8(resultPixelFloatAry, 1, resultPixelUint8Ary, 1, vDSP_Length(len))
 
-				let resultData = Data(bytes: resultPixelUint8Ary, count: len)
-				let resultImg = imageFromBitmap(pixels: resultData, width: Int(img1.size.width), height: Int(img1.size.height))
+				let resultBitmap = Data(bytes: resultPixelUint8Ary, count: len)
+				let resultImg = imageFromBitmap(bitmap: resultBitmap, width: Int(img1.size.width), height: Int(img1.size.height))
 
                 return resultImg
             }
