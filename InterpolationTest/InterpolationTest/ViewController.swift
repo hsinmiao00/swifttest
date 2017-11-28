@@ -56,7 +56,7 @@ class ViewController: UIViewController {
 				images.append(pixels!)
             }
 			imageView?.animationImages = images
-			imageView?.animationDuration = 1
+			imageView?.animationDuration = 2
 			imageView?.startAnimating()
         }
  
@@ -117,95 +117,41 @@ class ViewController: UIViewController {
     }
 
 	func interpolateImage(img1: UIImage, img2: UIImage, ratio: Float) -> UIImage? {
-        if let pixelData = img1.cgImage?.dataProvider?.data {
+        if let pixelData1 = img1.cgImage?.dataProvider?.data {
             if let pixelData2 = img2.cgImage?.dataProvider?.data {
-                let data: UnsafePointer<UInt8> = CFDataGetBytePtr(pixelData)
-                let data2: UnsafePointer<UInt8> = CFDataGetBytePtr(pixelData2)
-                
-                /*
-                for i in 0...Int(img1.size.height)-1 {
-                    for j in 0...Int(img1.size.width)-1 {
-                       
-                        let pixelInfo: Int = ((Int(img1.size.width) * i) + j) * 4
-                        let r = UInt8(data[pixelInfo+0])
-                        let g = UInt8(data[pixelInfo+1])
-                        let b = UInt8(data[pixelInfo+2])
-                        let a = UInt8(data[pixelInfo+3])
-                        let r2 = UInt8(data2[pixelInfo+0])
-                        let g2 = UInt8(data2[pixelInfo+1])
-                        let b2 = UInt8(data2[pixelInfo+2])
-                        let a2 = UInt8(data2[pixelInfo+3])
-                        
-                        let rr = UInt8( Float(r) * ratio + Float(r2) * (1-ratio))
-                        let gg = UInt8( Float(g) * ratio + Float(g2) * (1-ratio))
-                        let bb = UInt8( Float(b) * ratio + Float(b2) * (1-ratio))
-                        let aa = UInt8( Float(a) * ratio + Float(a2) * (1-ratio))
-                        let p = PixelData(a: aa, r: rr, g: gg, b: bb)
-                        //pixels.append(p)
-                        
-                    }
-                    //print(i)
-                }
-*/
-				let start = DispatchTime.now()
+				// The sequence is R, G, B, A.
+                let pixelDataAry1: UnsafePointer<UInt8> = CFDataGetBytePtr(pixelData1)
+                let pixelDataAry2: UnsafePointer<UInt8> = CFDataGetBytePtr(pixelData2)
                 let len = Int(img1.size.height) * Int(img1.size.width) * 4
-                var vvresult = [Float](repeating : 0.0, count : len)
 
-                var v1 = [Float](repeating : 0.0, count : len)
-                var v2 = [Float](repeating : 0.0, count : len)
-				var v3 = [Float](repeating : 0.0, count : len)
-				var v4 = [Float](repeating : 0.0, count : len)
+				// Convert UnsafePointer<UInt8> to UnsafePointer<Float>
+				var pixelFloatAry1 = [Float](repeating : 0.0, count : len)
+				var pixelFloatAry2 = [Float](repeating : 0.0, count : len)
+				vDSP_vfltu8(pixelDataAry1, 1, &pixelFloatAry1, 1, vDSP_Length(len))
+				vDSP_vfltu8(pixelDataAry2, 1, &pixelFloatAry2, 1, vDSP_Length(len))
 
-				var s1 = ratio
-				var s2 = 1 - ratio
-                vDSP_vfltu8(data, 1, &v1, 1, vDSP_Length(len))
-                vDSP_vfltu8(data2, 1, &v2, 1, vDSP_Length(len))
+				// Vector-Scalar Multiplication
+				var weightedPixelAry1 = [Float](repeating : 0.0, count : len)
+				var weightedPixelAry2 = [Float](repeating : 0.0, count : len)
+				var weight1 = ratio
+				var weight2 = 1 - ratio
+				vDSP_vsmul(&pixelFloatAry1, 1, &weight1, &weightedPixelAry1, 1, vDSP_Length(len))
+				vDSP_vsmul(&pixelFloatAry2, 1, &weight2, &weightedPixelAry2, 1, vDSP_Length(len))
 
-				vDSP_vsmul(&v1, 1, &s1, &v3, 1, vDSP_Length(len))
-				vDSP_vsmul(&v2, 1, &s2, &v4, 1, vDSP_Length(len))
+				// Vector Addition
+                var resultPixelFloatAry = [Float](repeating : 0.0, count : len)
+                vDSP_vadd(weightedPixelAry1, 1, weightedPixelAry2, 1, &resultPixelFloatAry, 1, vDSP_Length(len))
 
-                vDSP_vadd(v3, 1, v4, 1, &vvresult, 1, vDSP_Length(len))
+				// Convert UnsafePointer<Float> to UnsafePointer<UInt8>
+				let resultPixelUint8Ary = UnsafeMutablePointer<UInt8>.allocate(capacity: len)
+				vDSP_vfixu8(resultPixelFloatAry, 1, resultPixelUint8Ary, 1, vDSP_Length(len))
 
-				let result = UnsafeMutablePointer<UInt8>.allocate(capacity: len)
-				vDSP_vfixu8(vvresult, 1, result, 1, vDSP_Length(len))
+				let resultData = Data(bytes: resultPixelUint8Ary, count: len)
+				let resultImg = imageFromBitmap(pixels: resultData, width: Int(img1.size.width), height: Int(img1.size.height))
 
-				let end = DispatchTime.now()
-
-				/*
-				pixels = [PixelData](repeating: PixelData(), count: len / 4)
-				var cnt: Int = 0
-				for i in 0...Int(img1.size.height)-1 {
-					for j in 0...Int(img1.size.width)-1 {
-						let pixelInfo: Int = ((Int(img1.size.width) * i) + j) * 4
-						let r = UInt8(vvresult[pixelInfo+0])
-						let g = UInt8(vvresult[pixelInfo+1])
-						let b = UInt8(vvresult[pixelInfo+2])
-						let a = UInt8(vvresult[pixelInfo+3])
-						let p = PixelData(a: a, r: r, g: g, b: b)
-						pixels[cnt] = p
-						cnt = cnt + 1
-
-					}
-
-}
-*/
-				//let bitmap2 = imageFromBitmap2(pixels: pixels, width: Int(img1.size.width), height: Int(img1.size.height))
-				//print(data[0], data[1], data[2], data[3])
-				//print(result[0], result[1], result[2], result[3])
-				let fdata = Data(bytes: result, count: len)
-				let bitmap = imageFromBitmap(pixels: fdata, width: Int(img1.size.width), height: Int(img1.size.height))
-				//print(bitmap)
-                let nanoTime = end.uptimeNanoseconds - start.uptimeNanoseconds // <<<<< Difference in nano seconds (UInt64)
-                let timeInterval = Double(nanoTime) / 1_000_000_000 // Technically could overflow for long running tests
-                
-                print("Inner Time \(timeInterval) seconds")
-				//UIImageWriteToSavedPhotosAlbum(bitmap!, self, nil, nil)
-				//usleep(500000)
-                return bitmap
-                
+                return resultImg
             }
         }
-        //return pixels
 		return nil
     }
 }
