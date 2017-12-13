@@ -13,6 +13,7 @@
 		43A611C91FE0B3DB001BB48F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43A611C81FE0B3DB001BB48F /* Assets.xcassets */; };
 		43A611CC1FE0B3DB001BB48F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43A611CA1FE0B3DB001BB48F /* LaunchScreen.storyboard */; };
 		43A611D51FE0B40F001BB48F /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43A611D41FE0B40F001BB48F /* opencv2.framework */; };
+		43A611E11FE0BE80001BB48F /* OpenCVWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A611E01FE0BE80001BB48F /* OpenCVWrapper.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,9 @@
 		43A611CB1FE0B3DB001BB48F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		43A611CD1FE0B3DB001BB48F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		43A611D41FE0B40F001BB48F /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = ../../../../../../../Downloads/opencv2.framework; sourceTree = "<group>"; };
+		43A611DF1FE0BE80001BB48F /* OpenCVWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenCVWrapper.h; sourceTree = "<group>"; };
+		43A611E01FE0BE80001BB48F /* OpenCVWrapper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OpenCVWrapper.m; sourceTree = "<group>"; };
+		43A611E21FE0BEB3001BB48F /* OpenCVTest-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OpenCVTest-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +68,9 @@
 				43A611C81FE0B3DB001BB48F /* Assets.xcassets */,
 				43A611CA1FE0B3DB001BB48F /* LaunchScreen.storyboard */,
 				43A611CD1FE0B3DB001BB48F /* Info.plist */,
+				43A611DF1FE0BE80001BB48F /* OpenCVWrapper.h */,
+				43A611E01FE0BE80001BB48F /* OpenCVWrapper.m */,
+				43A611E21FE0BEB3001BB48F /* OpenCVTest-Bridging-Header.h */,
 			);
 			path = OpenCVTest;
 			sourceTree = "<group>";
@@ -108,6 +115,7 @@
 				TargetAttributes = {
 					43A611BD1FE0B3DB001BB48F = {
 						CreatedOnToolsVersion = 9.0;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -150,6 +158,7 @@
 			files = (
 				43A611C41FE0B3DB001BB48F /* ViewController.swift in Sources */,
 				43A611C21FE0B3DB001BB48F /* AppDelegate.swift in Sources */,
+				43A611E11FE0BE80001BB48F /* OpenCVWrapper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,13 +295,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = TYG5CRJT2C;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				INFOPLIST_FILE = OpenCVTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = hmtest.OpenCVTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "OpenCVTest/OpenCVTest-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -302,13 +315,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = TYG5CRJT2C;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				INFOPLIST_FILE = OpenCVTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = hmtest.OpenCVTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "OpenCVTest/OpenCVTest-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
