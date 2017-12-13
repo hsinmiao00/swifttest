@@ -13,7 +13,7 @@
 		43A611C91FE0B3DB001BB48F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43A611C81FE0B3DB001BB48F /* Assets.xcassets */; };
 		43A611CC1FE0B3DB001BB48F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43A611CA1FE0B3DB001BB48F /* LaunchScreen.storyboard */; };
 		43A611D51FE0B40F001BB48F /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43A611D41FE0B40F001BB48F /* opencv2.framework */; };
-		43A611E11FE0BE80001BB48F /* OpenCVWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A611E01FE0BE80001BB48F /* OpenCVWrapper.m */; };
+		43A611E11FE0BE80001BB48F /* OpenCVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43A611E01FE0BE80001BB48F /* OpenCVWrapper.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,7 +26,7 @@
 		43A611CD1FE0B3DB001BB48F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		43A611D41FE0B40F001BB48F /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = ../../../../../../../Downloads/opencv2.framework; sourceTree = "<group>"; };
 		43A611DF1FE0BE80001BB48F /* OpenCVWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenCVWrapper.h; sourceTree = "<group>"; };
-		43A611E01FE0BE80001BB48F /* OpenCVWrapper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OpenCVWrapper.m; sourceTree = "<group>"; };
+		43A611E01FE0BE80001BB48F /* OpenCVWrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenCVWrapper.mm; sourceTree = "<group>"; };
 		43A611E21FE0BEB3001BB48F /* OpenCVTest-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OpenCVTest-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -69,7 +69,7 @@
 				43A611CA1FE0B3DB001BB48F /* LaunchScreen.storyboard */,
 				43A611CD1FE0B3DB001BB48F /* Info.plist */,
 				43A611DF1FE0BE80001BB48F /* OpenCVWrapper.h */,
-				43A611E01FE0BE80001BB48F /* OpenCVWrapper.m */,
+				43A611E01FE0BE80001BB48F /* OpenCVWrapper.mm */,
 				43A611E21FE0BEB3001BB48F /* OpenCVTest-Bridging-Header.h */,
 			);
 			path = OpenCVTest;
@@ -158,7 +158,7 @@
 			files = (
 				43A611C41FE0B3DB001BB48F /* ViewController.swift in Sources */,
 				43A611C21FE0B3DB001BB48F /* AppDelegate.swift in Sources */,
-				43A611E11FE0BE80001BB48F /* OpenCVWrapper.m in Sources */,
+				43A611E11FE0BE80001BB48F /* OpenCVWrapper.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

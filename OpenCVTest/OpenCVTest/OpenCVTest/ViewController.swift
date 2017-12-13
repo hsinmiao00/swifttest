@@ -49,7 +49,6 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             print(error)
             return
         }
-
     }
 
     override func didReceiveMemoryWarning() {
@@ -57,8 +56,9 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         // Dispose of any resources that can be recreated.
     }
 
-    func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputSampleBuffer sampleBuffer: CMSampleBuffer!, from connection: AVCaptureConnection!) {
+    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         let frameImage = UIImageFromCMSamleBuffer(buffer: sampleBuffer)
+        let grayImage = OpenCVWrapper.toGray(frameImage)
     }
 
 }
