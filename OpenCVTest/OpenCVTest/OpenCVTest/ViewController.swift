@@ -14,6 +14,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
 
     private var captureSession: AVCaptureSession?
     private var videoPreviewLayer: AVCaptureVideoPreviewLayer?
+    let wrapper = DlibWrapper()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +50,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             print(error)
             return
         }
+        wrapper.prepare()
     }
 
     override func didReceiveMemoryWarning() {
@@ -58,7 +60,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
 
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         let frameImage = UIImageFromCMSamleBuffer(buffer: sampleBuffer)
-        let grayImage = OpenCVWrapper.toGray(frameImage)
+        //let grayImage = OpenCVWrapper.toGray(frameImage)
     }
 
 }
