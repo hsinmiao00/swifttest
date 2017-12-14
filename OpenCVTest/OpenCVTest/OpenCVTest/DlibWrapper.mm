@@ -29,7 +29,8 @@
 }
 
 - (void)prepare {
-    NSString *modelFileName = [[NSBundle mainBundle] pathForResource:@"shape_predictor_68_face_landmarks" ofType:@"dat"];
+    NSBundle *bundle = [NSBundle mainBundle];
+    NSString *modelFileName = [bundle pathForResource:@"shape_predictor_68_face_landmarks" ofType:@"dat"];
     std::string modelFileNameCString = [modelFileName UTF8String];
 
     dlib::deserialize(modelFileNameCString) >> sp;

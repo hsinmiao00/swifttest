@@ -17,6 +17,8 @@
 		43A611ED1FE20A83001BB48F /* libdlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 43A611EC1FE20A83001BB48F /* libdlib.a */; };
 		43A611F01FE20D34001BB48F /* shape_predictor_68_face_landmarks.dat in Resources */ = {isa = PBXBuildFile; fileRef = 43A611EF1FE20D34001BB48F /* shape_predictor_68_face_landmarks.dat */; };
 		43A611F31FE20D61001BB48F /* DlibWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43A611F21FE20D61001BB48F /* DlibWrapper.mm */; };
+		43A611F61FE2FA92001BB48F /* SomeCPPImplementation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 43A611F51FE2FA92001BB48F /* SomeCPPImplementation.cpp */; };
+		43A611F91FE2FADF001BB48F /* MyOCPPClass.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43A611F81FE2FADF001BB48F /* MyOCPPClass.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +37,10 @@
 		43A611EF1FE20D34001BB48F /* shape_predictor_68_face_landmarks.dat */ = {isa = PBXFileReference; lastKnownFileType = file; path = shape_predictor_68_face_landmarks.dat; sourceTree = "<group>"; };
 		43A611F11FE20D61001BB48F /* DlibWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DlibWrapper.h; sourceTree = "<group>"; };
 		43A611F21FE20D61001BB48F /* DlibWrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DlibWrapper.mm; sourceTree = "<group>"; };
+		43A611F41FE2FA69001BB48F /* SomeCPPHeader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SomeCPPHeader.hpp; sourceTree = "<group>"; };
+		43A611F51FE2FA92001BB48F /* SomeCPPImplementation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SomeCPPImplementation.cpp; sourceTree = "<group>"; };
+		43A611F71FE2FADF001BB48F /* MyOCPPHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyOCPPHeader.h; sourceTree = "<group>"; };
+		43A611F81FE2FADF001BB48F /* MyOCPPClass.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MyOCPPClass.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +89,8 @@
 				43A611E21FE0BEB3001BB48F /* OpenCVTest-Bridging-Header.h */,
 				43A611F11FE20D61001BB48F /* DlibWrapper.h */,
 				43A611F21FE20D61001BB48F /* DlibWrapper.mm */,
+				43A611F71FE2FADF001BB48F /* MyOCPPHeader.h */,
+				43A611F81FE2FADF001BB48F /* MyOCPPClass.mm */,
 			);
 			path = OpenCVTest;
 			sourceTree = "<group>";
@@ -99,6 +107,8 @@
 			isa = PBXGroup;
 			children = (
 				43A611EC1FE20A83001BB48F /* libdlib.a */,
+				43A611F41FE2FA69001BB48F /* SomeCPPHeader.hpp */,
+				43A611F51FE2FA92001BB48F /* SomeCPPImplementation.cpp */,
 			);
 			path = lib;
 			sourceTree = "<group>";
@@ -187,7 +197,9 @@
 			files = (
 				43A611F31FE20D61001BB48F /* DlibWrapper.mm in Sources */,
 				43A611C41FE0B3DB001BB48F /* ViewController.swift in Sources */,
+				43A611F61FE2FA92001BB48F /* SomeCPPImplementation.cpp in Sources */,
 				43A611C21FE0B3DB001BB48F /* AppDelegate.swift in Sources */,
+				43A611F91FE2FADF001BB48F /* MyOCPPClass.mm in Sources */,
 				43A611E11FE0BE80001BB48F /* OpenCVWrapper.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
