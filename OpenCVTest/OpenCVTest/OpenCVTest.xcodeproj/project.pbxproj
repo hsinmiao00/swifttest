@@ -14,6 +14,7 @@
 		43A611CC1FE0B3DB001BB48F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43A611CA1FE0B3DB001BB48F /* LaunchScreen.storyboard */; };
 		43A611D51FE0B40F001BB48F /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43A611D41FE0B40F001BB48F /* opencv2.framework */; };
 		43A611E11FE0BE80001BB48F /* OpenCVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 43A611E01FE0BE80001BB48F /* OpenCVWrapper.mm */; };
+		43A611ED1FE20A83001BB48F /* libdlib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 43A611EC1FE20A83001BB48F /* libdlib.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		43A611DF1FE0BE80001BB48F /* OpenCVWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenCVWrapper.h; sourceTree = "<group>"; };
 		43A611E01FE0BE80001BB48F /* OpenCVWrapper.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenCVWrapper.mm; sourceTree = "<group>"; };
 		43A611E21FE0BEB3001BB48F /* OpenCVTest-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OpenCVTest-Bridging-Header.h"; sourceTree = "<group>"; };
+		43A611EC1FE20A83001BB48F /* libdlib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libdlib.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43A611ED1FE20A83001BB48F /* libdlib.a in Frameworks */,
 				43A611D51FE0B40F001BB48F /* opencv2.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -45,6 +48,7 @@
 		43A611B51FE0B3DB001BB48F = {
 			isa = PBXGroup;
 			children = (
+				43A611EB1FE209E4001BB48F /* lib */,
 				43A611C01FE0B3DB001BB48F /* OpenCVTest */,
 				43A611BF1FE0B3DB001BB48F /* Products */,
 				43A611D31FE0B40E001BB48F /* Frameworks */,
@@ -81,6 +85,14 @@
 				43A611D41FE0B40F001BB48F /* opencv2.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		43A611EB1FE209E4001BB48F /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				43A611EC1FE20A83001BB48F /* libdlib.a */,
+			);
+			path = lib;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -299,9 +311,21 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = TYG5CRJT2C;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					DLIB_NO_GUI_SUPPORT,
+					DLIB_JPEG_SUPPORT,
+					NDEBUG,
+					DLIB_USE_BLAS,
+					DLIB_USE_LAPACK,
+				);
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/lib";
 				INFOPLIST_FILE = OpenCVTest/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/lib",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = hmtest.OpenCVTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "OpenCVTest/OpenCVTest-Bridging-Header.h";
@@ -319,9 +343,21 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = TYG5CRJT2C;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					DLIB_NO_GUI_SUPPORT,
+					DLIB_JPEG_SUPPORT,
+					NDEBUG,
+					DLIB_USE_BLAS,
+					DLIB_USE_LAPACK,
+				);
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/lib";
 				INFOPLIST_FILE = OpenCVTest/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/lib",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = hmtest.OpenCVTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "OpenCVTest/OpenCVTest-Bridging-Header.h";
